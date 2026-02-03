@@ -125,6 +125,11 @@
   source: "https://idlethumbs.bandcamp.com/track/space-asshole"
   # The source is a direct link to the track, but not the "main" bandcamp of the author. Hence the link is also included separately in the copyright.
 
+- files: ["fire_fire.ogg"]
+  license: "Custom"
+  copyright: "they seem cool, no one tell them. ill take the legal issues because im hosting the server -bunchy7s"
+  source: "https://steampoweredgiraffe.bandcamp.com/track/fire-fire"
+
 - files: ["absconditus.ogg"]
   license: "CC-BY-NC-SA-3.0"
   copyright: "Absconditus by ZhayTee. Converted from MP3 to OGG."
