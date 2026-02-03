@@ -22,7 +22,7 @@ RELEASE_DIR = "release"
 #
 ROBUST_CDN_URL = "https://cdn.bunchy7s.online/"
 FORK_ID = "wondercluster"
-# bunchy was here (remove this comment and i riot)
+# bunchy was here (remove this comment and i put malware in the CDN)
 
 def main():
     session = requests.Session()
