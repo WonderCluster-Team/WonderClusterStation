@@ -19,6 +19,8 @@ SPDX-License-Identifier: AGPL-3.0-or-later
         </BoxContainer>
         <BoxContainer Orientation="Horizontal" Margin="2">
             <CheckBox Name="GroupCheckbox" Text="{Loc time-transfer-panel-checkbox-group}" MinWidth = "120"/>
+            <Control MinWidth ="8"/>
+            <CheckBox Name="AllCheckbox" Text="All" MinWidth="60" Visible="False" Disabled="True"/>
             <Control MinWidth ="10"/>
             <LineEdit Name="GroupTimeLine" PlaceHolder="0h0m" HorizontalExpand="True" />
         </BoxContainer>
