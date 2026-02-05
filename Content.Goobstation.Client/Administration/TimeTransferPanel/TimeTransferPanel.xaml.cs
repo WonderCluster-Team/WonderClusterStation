@@ -39,6 +39,14 @@ public sealed partial class TimeTransferPanel : DefaultWindow
         AddTimeButton.OnButtonUp += OnAddTimeButtonPressed;
         SetTimeButton.OnButtonUp += OnSetTimeButtonPressed;
         GroupCheckbox.OnPressed += OnGroupCheckboxPressed;
+        AllCheckbox.OnPressed += OnAllCheckboxPressed;
+        
+        var allText = Loc.GetString("time-transfer-panel-checkbox-all");
+        if (string.IsNullOrWhiteSpace(allText) || allText == "time-transfer-panel-checkbox-all")
+            allText = "All";
+        AllCheckbox.Text = allText;
+        AllCheckbox.Pressed = false;
+        AllCheckbox.Disabled = true;
 
         JobSearch.OnTextChanged += OnJobSearchTextChanged;
 
@@ -139,6 +147,17 @@ public sealed partial class TimeTransferPanel : DefaultWindow
     public void UpdateGroup()
     {
         GroupTimeLine.Visible = GroupCheckbox.Pressed;
+        AllCheckbox.Visible = GroupCheckbox.Pressed;
+        if (!GroupCheckbox.Pressed)
+        {
+            AllCheckbox.Pressed = false;
+            AllCheckbox.Disabled = true;
+        }
+        else
+        {
+            AllCheckbox.Disabled = false;
+            AllCheckbox.Text = Loc.GetString("time-transfer-panel-checkbox-all");
+        }
 
         foreach (var entry in JobContainer.Children)
         {
@@ -146,6 +165,21 @@ public sealed partial class TimeTransferPanel : DefaultWindow
                 continue;
 
             jobEntry.UpdateGroupVisibility(GroupCheckbox.Pressed);
+            if (!GroupCheckbox.Pressed)
+                jobEntry.SetInGroup(false);
+        }
+    }
+
+    private void OnAllCheckboxPressed(BaseButton.ButtonEventArgs obj)
+    {
+        var allChecked = AllCheckbox.Pressed;
+
+        foreach (var entry in JobContainer.Children)
+        {
+            if (entry is not TimeTransferEntry jobEntry)
+                continue;
+
+            jobEntry.SetInGroup(allChecked);
         }
     }
 
@@ -178,7 +212,36 @@ public sealed partial class TimeTransferPanel : DefaultWindow
 
     public void OnGroupCheckboxPressed(BaseButton.ButtonEventArgs obj)
     {
-        UpdateGroup();
+        // Event may fire before the CheckBox's Pressed property is updated, so read the event's button state when possible.
+        var pressed = (obj.Button as CheckBox)?.Pressed ?? GroupCheckbox.Pressed;
+
+        // Update visibility/state of group UI immediately.
+        GroupTimeLine.Visible = pressed;
+        AllCheckbox.Visible = pressed;
+
+        if (!pressed)
+        {
+            AllCheckbox.Pressed = false;
+            AllCheckbox.Disabled = true;
+        }
+        else
+        {
+            AllCheckbox.Disabled = false;
+            var allTextLocal = Loc.GetString("time-transfer-panel-checkbox-all");
+            if (string.IsNullOrWhiteSpace(allTextLocal) || allTextLocal == "time-transfer-panel-checkbox-all")
+                allTextLocal = "All";
+            AllCheckbox.Text = allTextLocal;
+        }
+
+        foreach (var entry in JobContainer.Children)
+        {
+            if (entry is not TimeTransferEntry jobEntry)
+                continue;
+
+            jobEntry.UpdateGroupVisibility(pressed);
+            if (!pressed)
+                jobEntry.SetInGroup(false);
+        }
     }
 
     public void OnAddTimeButtonPressed(BaseButton.ButtonEventArgs obj)

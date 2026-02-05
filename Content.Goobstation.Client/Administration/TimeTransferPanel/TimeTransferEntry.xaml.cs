@@ -50,4 +50,9 @@ public sealed partial class TimeTransferEntry : BoxContainer
     {
         return GroupCheckbox.Pressed;
     }
+
+    public void SetInGroup(bool pressed)
+    {
+        GroupCheckbox.Pressed = pressed;
+    }
 }
