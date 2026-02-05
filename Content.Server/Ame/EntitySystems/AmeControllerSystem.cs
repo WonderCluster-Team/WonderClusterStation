@@ -171,8 +171,8 @@ public sealed class AmeControllerSystem : EntitySystem
         group.UpdateCoreVisuals();
         UpdateDisplay(uid, controller.Stability, controller);
 
-        if (controller.Stability <= 0)
-            group.ExplodeCores();
+        //if (controller.Stability <= 0)
+        //    group.ExplodeCores();   Steal ratbite solution to bitchass AME exploding -bunchy7s
     }
 
     public void UpdateUi(EntityUid uid, AmeControllerComponent? controller = null)
