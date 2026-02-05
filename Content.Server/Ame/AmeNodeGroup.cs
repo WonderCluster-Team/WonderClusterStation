@@ -167,8 +167,7 @@ public sealed class AmeNodeGroup : BaseNodeGroup
         var safeLimit = CoreCount * 2;
         var overLimit = MathF.Max(fuel - safeLimit, 0);
 
-        return MathF.Max(250000f * MathF.Log10(2 * ( MathF.Min(fuel, safeLimit) + MathF.Pow(overLimit+0.00001f, -0.4f)*overLimit ) * MathF.Pow(cores, (float)-0.5)), 0);
-        // changed one number so i can feel like i did something, -bunchy7s
+        return MathF.Max(200000f * MathF.Log10(2 * ( MathF.Min(fuel, safeLimit) + MathF.Pow(overLimit+0.00001f, -0.4f)*overLimit ) * MathF.Pow(cores, (float)-0.5)), 0);
     }
 
     public int GetTotalStability()
